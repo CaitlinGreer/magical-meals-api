@@ -78,7 +78,7 @@ mealsRouter
         .get((req, res, next) => {
             res.json(serializeMeal(res.meal))
         })
-        .delete((red, res, next) => {
+        .delete((req, res, next) => {
             MealsService.deleteMeal(
                 req.app.get('db'),
                 req.params.id

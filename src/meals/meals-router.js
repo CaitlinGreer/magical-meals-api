@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const MealsService = require('./meals-service')
-const express = require('express')
+
 
 const mealsRouter = express.Router()
 const jsonParser = express.json()

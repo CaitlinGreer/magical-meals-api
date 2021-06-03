@@ -3,7 +3,7 @@ const { expectCt } = require('helmet')
 const knex = require('knex')
 const supertest = require('supertest')
 const app = require('../src/app')
-const { makeMealArray } = require('./meal-fixtures')
+const { makeMealArray, makeMaliciousMeal } = require('./meal-fixtures')
 
 describe('Magical Meals Endpoints', function() {
     let db
@@ -50,6 +50,28 @@ describe('Magical Meals Endpoints', function() {
         })
     })
 
+    context('Given an xss attack meal', () => {
+        const { maliciousMeal, expectedMeal } = makeMaliciousMeal()
+
+        beforeEach('insert a maliciou meal', () => {
+            return db
+                .into('magical_meals')
+                .insert(maliciousMeal)
+        })
+
+        it('it removes xss attack meal', () => {
+            return supertest(app)
+                .get('/api/meals')
+                .expect(200)
+                .expect(res => {
+                    expect(res.body[0].meal_name).to.eql(expectedMeal.meal_name)
+                    expect(res.body[0].meal_description).to.eql(expectedMeal.meal_description)
+                    expect(res.body[0].restaurant_name).to.eql(expectedMeal.restaurant_name)
+                    expect(res.body[0].meal_location).to.eql(expectedMeal.meal_location)
+                })
+        })
+    })
+
 //GET /api/meals/:id
 
     describe('GET /api/meals/:id', () => {
@@ -80,6 +102,28 @@ describe('Magical Meals Endpoints', function() {
                 return supertest(app)
                     .get(`/api/meals/${mealId}`)
                     .expect(200, expectedMeal)
+            })
+        })
+
+        context('Given an xss attack meal', () => {
+            const { maliciousMeal, expectedMeal } = makeMaliciousMeal()
+    
+            beforeEach('insert a maliciou meal', () => {
+                return db
+                    .into('magical_meals')
+                    .insert(maliciousMeal)
+            })
+    
+            it('it removes xss attack meal', () => {
+                return supertest(app)
+                    .get('/api/meals')
+                    .expect(200)
+                    .expect(res => {
+                        expect(res.body[0].meal_name).to.eql(expectedMeal.meal_name)
+                        expect(res.body[0].meal_description).to.eql(expectedMeal.meal_description)
+                        expect(res.body[0].restaurant_name).to.eql(expectedMeal.restaurant_name)
+                        expect(res.body[0].meal_location).to.eql(expectedMeal.meal_location)
+                    })
             })
         })
     })

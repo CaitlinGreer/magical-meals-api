@@ -31,7 +31,7 @@ const MealsService = {
             .delete()
     },
 
-    updateMeal(kned, id, newMealField) {
+    updateMeal(knex, id, newMealField) {
         return knex('magical_meals')
             .where({ id })
             .update(newMealField)

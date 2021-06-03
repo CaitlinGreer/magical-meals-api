@@ -20,7 +20,7 @@ app.use(cors())
 app.use('/api/meals', mealsRouter)
 
 app.get('/', (req, res) => {
-    res.send('Hello, world!')
+    res.send('Hello, world! Magical Meals')
 })
 
 //Error handler middleware (hide error messages from users)

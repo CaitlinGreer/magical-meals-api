@@ -7,6 +7,5 @@ CREATE TABLE magical_meals (
     price NUMERIC,
     is_vegan BOOLEAN,
     is_vegetarian BOOLEAN,
-    is_glutenfree BOOLEAN,
+    is_glutenfree BOOLEAN
 );
-

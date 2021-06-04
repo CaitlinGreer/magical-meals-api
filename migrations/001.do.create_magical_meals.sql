@@ -7,6 +7,7 @@ CREATE TABLE magical_meals (
     price NUMERIC,
     is_vegan BOOLEAN,
     is_vegetarian BOOLEAN,
-    is_glutenfree BOOLEAN
+    is_glutenfree BOOLEAN,
+    location_id INTEGER REFERENCES magical_locations(id) ON DELETE CASCADE NOT NULL
 );
 

@@ -13,7 +13,7 @@ This project was created using:
 
 ## Check Out the Live Version:
 
-[Magical Meals](magical-meals.vercel.app)
+[Magical Meals](https://magical-meals.vercel.app/)
 
 ## API Endpoints
 * GET & POST: /api/meals
